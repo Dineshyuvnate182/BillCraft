@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Invoice</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&display=swap');
+        body { margin: 0; padding: 0; font-family: 'Space Grotesk', sans-serif; background: #fff; color: #1a1a1a; }
+        .invoice-box { max-width: 800px; margin: auto; padding: 40px; box-sizing: border-box; }
+        .header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 40px; border-bottom: 2px solid #FF6B35; padding-bottom: 20px; }
+        .brand { font-size: 32px; font-weight: 700; color: #1a1a1a; letter-spacing: -1px; }
+        .brand span { color: #FF6B35; }
+        .invoice-details { text-align: right; }
+        .invoice-details h2 { margin: 0; font-size: 28px; color: #FF6B35; letter-spacing: 2px; text-transform: uppercase; }
+        .details-row { font-size: 14px; color: #666; margin-top: 4px; }
+        
+        .client-info { background: #f9fafb; padding: 20px; border-radius: 12px; margin-bottom: 40px; border: 1px solid #e5e7eb; }
+        .client-info h3 { margin: 0 0 8px 0; font-size: 14px; color: #666; text-transform: uppercase; letter-spacing: 1px; }
+        .client-info p { margin: 0; font-size: 18px; font-weight: 600; color: #1a1a1a; }
+        
+        table { width: 100%; line-height: inherit; text-align: left; border-collapse: collapse; margin-bottom: 40px; }
+        table th { background: #1a1a1a; color: white; padding: 12px 16px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+        table td { padding: 16px; border-bottom: 1px solid #eee; font-size: 14px; }
+        table th:last-child, table td:last-child { text-align: right; }
+        
+        .total-section { width: 300px; margin-left: auto; background: #fff; }
+        .total-row { display: flex; justify-content: space-between; padding: 8px 0; font-size: 14px; color: #666; }
+        .total-row.grand { border-top: 2px solid #1a1a1a; margin-top: 8px; padding-top: 12px; font-size: 20px; font-weight: 700; color: #1a1a1a; }
+        .total-row.grand span:last-child { color: #FF6B35; }
+        
+        .footer { margin-top: 60px; text-align: center; color: #888; font-size: 12px; border-top: 1px solid #eee; padding-top: 20px; }
+    </style>
+</head>
+<body>
+    <div class="invoice-box">
+        <div class="header">
+            <div class="brand">{{business_name}}</div>
+            <div class="invoice-details">
+                <h2>INVOICE</h2>
+                <div class="details-row">Invoice #: {{invoice_no}}</div>
+                <div class="details-row">Date: {{date}}</div>
+            </div>
+        </div>
+
+        <div class="client-info">
+            <h3>Billed To:</h3>
+            <p>{{customer_name}}</p>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Item Description</th>
+                    <th style="text-align: center">Qty</th>
+                    <th style="text-align: right">Price</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#each items}}
+                <tr>
+                    <td style="font-weight: 500;">{{name}}</td>
+                    <td style="text-align: center; color: #666;">{{quantity}}</td>
+                    <td style="text-align: right; color: #666;">₹{{price}}</td>
+                    <td style="font-weight: 600;">₹{{total}}</td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+
+        <div class="total-section">
+            <div class="total-row">
+                <span>Subtotal</span>
+                <span>₹{{total_amount}}</span>
+            </div>
+            <div class="total-row grand">
+                <span>Total Due</span>
+                <span>₹{{total_amount}}</span>
+            </div>
+        </div>
+
+        <div class="footer">
+            Thank you for your business. For any queries, please contact {{business_name}} directly.
+        </div>
+    </div>
+</body>
+</html>

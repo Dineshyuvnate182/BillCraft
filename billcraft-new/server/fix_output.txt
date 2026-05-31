@@ -1,0 +1,14 @@
+--- Fix 1: Adding stock column to products ---
+OK: stock column added
+--- Fix 2: Adding category column to products ---
+OK: category column added
+--- Fix 3: Adding description column to products ---
+OK: description column added
+--- Fix 4: Adding UNIQUE constraint on purchased_formats ---
+OK: UNIQUE constraint added
+--- Fix 5: Updating foreign key constraints ---
+OK: user_id FK updated to CASCADE
+OK: format_id FK updated to CASCADE
+
+--- Verify: product insert ---
+FATAL: null value in column "created_at" of relation "products" violates not-null constraint

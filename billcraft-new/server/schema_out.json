@@ -1,0 +1,32 @@
+[
+  {
+    "column_name": "id",
+    "data_type": "integer",
+    "column_default": "nextval('purchased_formats_id_seq'::regclass)",
+    "is_nullable": "NO"
+  },
+  {
+    "column_name": "purchase_date",
+    "data_type": "timestamp with time zone",
+    "column_default": null,
+    "is_nullable": "YES"
+  },
+  {
+    "column_name": "payment_id",
+    "data_type": "character varying",
+    "column_default": null,
+    "is_nullable": "YES"
+  },
+  {
+    "column_name": "user_id",
+    "data_type": "integer",
+    "column_default": null,
+    "is_nullable": "YES"
+  },
+  {
+    "column_name": "format_id",
+    "data_type": "integer",
+    "column_default": null,
+    "is_nullable": "YES"
+  }
+]

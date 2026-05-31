@@ -1,0 +1,15 @@
+User: id=1
+
+=== PRODUCT INSERT TEST ===
+FAILED: column "stock" of relation "products" does not exist
+
+=== PURCHASE FORMAT TEST ===
+Format id: 3
+
+=== CONSTRAINTS ===
+purchased_formats_id_not_null (n): NOT NULL id
+purchased_formats_pkey (p): PRIMARY KEY (id)
+purchased_formats_user_id_fkey (f): FOREIGN KEY (user_id) REFERENCES users(id) ON UPDATE CASCADE ON DELETE SET NULL
+purchased_formats_format_id_fkey (f): FOREIGN KEY (format_id) REFERENCES bill_formats(id) ON UPDATE CASCADE ON DELETE SET NULL
+
+PURCHASE FAILED: there is no unique or exclusion constraint matching the ON CONFLICT specification
