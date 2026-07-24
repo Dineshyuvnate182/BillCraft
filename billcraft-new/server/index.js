@@ -22,9 +22,11 @@ app.use('/api/admin',    require('./routes/adminRoutes'));
 app.get('/api/health', (_, res) => res.json({ status: 'OK', time: new Date() }));
 
 // ── Serve React build in production ──────────────────────────────────────────
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, '../client/build')));
-  app.get('*', (_, res) => res.sendFile(path.join(__dirname, '../client/build/index.html')));
+const fs = require('fs');
+const buildPath = path.join(__dirname, '../client/build');
+if (process.env.NODE_ENV === 'production' && fs.existsSync(buildPath)) {
+  app.use(express.static(buildPath));
+  app.get('*', (_, res) => res.sendFile(path.join(buildPath, 'index.html')));
 }
 
 // ── Start ─────────────────────────────────────────────────────────────────────
