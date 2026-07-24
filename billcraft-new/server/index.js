@@ -21,6 +21,9 @@ app.use('/api/admin',    require('./routes/adminRoutes'));
 // Health check
 app.get('/api/health', (_, res) => res.json({ status: 'OK', time: new Date() }));
 
+// Root route
+app.get('/', (_, res) => res.json({ message: 'Welcome to the BillCraft API!', status: 'online' }));
+
 // ── Serve React build in production ──────────────────────────────────────────
 const fs = require('fs');
 const buildPath = path.join(__dirname, '../client/build');
