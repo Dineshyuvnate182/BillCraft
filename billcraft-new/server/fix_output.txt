@@ -11,4 +11,9 @@ OK: user_id FK updated to CASCADE
 OK: format_id FK updated to CASCADE
 
 --- Verify: product insert ---
-FATAL: null value in column "created_at" of relation "products" violates not-null constraint
+Product insert OK: id=2
+
+--- Verify: purchase insert ---
+Purchase insert OK: inserted
+
+All fixes applied and verified!
