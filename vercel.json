@@ -1,5 +1,11 @@
 {
   "buildCommand": "cd billcraft-new/client && npm install && npm run build",
   "outputDirectory": "billcraft-new/client/build",
-  "framework": "create-react-app"
+  "framework": "create-react-app",
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://billcraft-728i.onrender.com/api/:path*"
+    }
+  ]
 }
