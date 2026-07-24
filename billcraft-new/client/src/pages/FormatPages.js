@@ -89,11 +89,14 @@ export function MyFormatsPage({ setPage }) {
   const [previewUrl, setPreviewUrl] = useState(null);
 
   useEffect(() => {
-    Promise.all([api.get('/formats/purchased'), api.get('/business')])
-      .then(([fr, b]) => { 
-        setFormats(fr.data); 
-        if (b.data) setDefaultFormat(b.data.default_format_id); 
-      }).catch(console.error).finally(() => setLoading(false));
+    api.get('/formats/purchased')
+      .then(res => setFormats(res.data))
+      .catch(err => console.error('Failed to load purchased formats:', err))
+      .finally(() => setLoading(false));
+
+    api.get('/business')
+      .then(res => { if (res.data) setDefaultFormat(res.data.default_format_id); })
+      .catch(err => console.error('Failed to load business profile:', err));
   }, []);
 
   const handleSetDefault = async (fmtId) => {

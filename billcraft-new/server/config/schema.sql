@@ -81,6 +81,21 @@ CREATE TABLE IF NOT EXISTS bill_items (
   total      DECIMAL(12,2) NOT NULL
 );
 
+-- Businesses Profile
+CREATE TABLE IF NOT EXISTS businesses (
+  id                SERIAL PRIMARY KEY,
+  user_id           INT UNIQUE NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  business_name     VARCHAR(150),
+  gst_number        VARCHAR(50),
+  address           TEXT,
+  phone             VARCHAR(20),
+  email             VARCHAR(150),
+  website           VARCHAR(150),
+  logo_url          TEXT,
+  default_format_id INT REFERENCES bill_formats(id) ON DELETE SET NULL,
+  created_at        TIMESTAMP DEFAULT NOW()
+);
+
 -- Seed: Bill Formats
 INSERT INTO bill_formats (name, accent, description, price, icon, tag, color, color2) VALUES
   ('Retail',     'Shop',    'Perfect for retail & general stores with GST support', 99,  '🛍️', 'Popular', '#6366F1', '#818CF8'),

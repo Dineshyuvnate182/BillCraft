@@ -16,6 +16,9 @@ api.interceptors.response.use(
       localStorage.removeItem('bc_user');
       window.location.href = '/login';
     }
+    if (err.response?.status === 403) {
+      console.warn('403 Forbidden:', err.response?.data?.error || err.message);
+    }
     return Promise.reject(err);
   }
 );

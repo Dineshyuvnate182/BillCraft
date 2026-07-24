@@ -1,5 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { C, GradText, Badge, Spinner, Toast } from '../components/UI';
+import { useAuth } from '../context/AuthContext';
 import api from '../utils/api';
 
 // ── Mini helpers ──────────────────────────────────────────────────────────────
@@ -99,7 +100,7 @@ function DashboardTab() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/admin/stats').then(r => setStats(r.data)).finally(() => setLoading(false));
+    api.get('/admin/stats').then(r => setStats(r.data)).catch(console.error).finally(() => setLoading(false));
   }, []);
 
   if (loading) return <div style={{ display: 'flex', justifyContent: 'center', padding: 60 }}><Spinner size={36} /></div>;
@@ -174,7 +175,7 @@ function UsersTab() {
   const [search, setSearch] = useState('');
 
   const load = useCallback(() => {
-    api.get('/admin/users').then(r => setUsers(r.data)).finally(() => setLoading(false));
+    api.get('/admin/users').then(r => setUsers(r.data)).catch(console.error).finally(() => setLoading(false));
   }, []);
   useEffect(load, [load]);
 
@@ -315,7 +316,7 @@ function FormatsTab() {
   const [form, setForm] = useState({ name:'', accent:'', description:'', price:'', icon:'🧾', tag:'Standard', color:'#6366F1', color2:'#818CF8', template_html:'', status:'active' });
 
   const load = useCallback(() => {
-    api.get('/admin/formats').then(r => setFormats(r.data)).finally(() => setLoading(false));
+    api.get('/admin/formats').then(r => setFormats(r.data)).catch(console.error).finally(() => setLoading(false));
   }, []);
   useEffect(load, [load]);
 
@@ -527,7 +528,7 @@ function PaymentsTab() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/admin/payments').then(r => setPayments(r.data)).finally(() => setLoading(false));
+    api.get('/admin/payments').then(r => setPayments(r.data)).catch(console.error).finally(() => setLoading(false));
   }, []);
 
   const total = payments.reduce((a, p) => a + Number(p.price), 0);
@@ -584,7 +585,7 @@ function BillsTab() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/admin/bills').then(r => setBills(r.data)).finally(() => setLoading(false));
+    api.get('/admin/bills').then(r => setBills(r.data)).catch(console.error).finally(() => setLoading(false));
   }, []);
 
   if (loading) return <div style={{ display: 'flex', justifyContent: 'center', padding: 60 }}><Spinner size={36} /></div>;
@@ -647,7 +648,7 @@ function AnalyticsTab() {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    api.get('/admin/analytics').then(r => setData(r.data)).finally(() => setLoading(false));
+    api.get('/admin/analytics').then(r => setData(r.data)).catch(console.error).finally(() => setLoading(false));
   }, []);
 
   if (loading) return <div style={{ display: 'flex', justifyContent: 'center', padding: 60 }}><Spinner size={36} /></div>;
@@ -737,7 +738,18 @@ const ADMIN_TABS = [
 ];
 
 export default function AdminPage() {
+  const { user } = useAuth();
   const [activeTab, setActiveTab] = useState('dashboard');
+
+  if (user?.role !== 'admin') {
+    return (
+      <div style={{ textAlign: 'center', padding: '60px 20px', color: C.gray }}>
+        <div style={{ fontSize: 48, marginBottom: 12 }}>🚫</div>
+        <h2 style={{ fontFamily: 'Bricolage Grotesque,sans-serif', fontSize: 22, fontWeight: 800, color: C.red, marginBottom: 8 }}>Access Denied</h2>
+        <p style={{ fontSize: 14 }}>Administrator privileges are required to view the admin panel.</p>
+      </div>
+    );
+  }
 
   const tabContent = {
     dashboard: <DashboardTab />,
