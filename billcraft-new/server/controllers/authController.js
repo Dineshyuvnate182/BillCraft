@@ -5,7 +5,7 @@ const pool   = require('../config/db');
 const signToken = (user) =>
   jwt.sign(
     { id: user.id, email: user.email, role: user.role, name: user.name },
-    process.env.JWT_SECRET || 'billcraft_super_secret_jwt_key_2026',
+    process.env.JWT_SECRET || 'b95c98c5c6839e872e77ecead43b328e876578c268e88e1386671d2fba4bb2fedc6c4faa05a5326a',
     { expiresIn: process.env.JWT_EXPIRES_IN || '7d' }
   );
 
